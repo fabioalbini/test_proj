@@ -1,0 +1,16 @@
+{
+  "family": "capistrano-deploy-staging",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc"
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "entryPoint": [
+        "bundle exec cap staging deploy"
+      ],
+      "name": "cap-deploy"
+    }
+  ]
+}
