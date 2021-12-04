@@ -13,7 +13,15 @@
       "essential": true,
       "command": [
         "bundle", "exec", "cap", "staging", "deploy"
-      ]
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "capistrano-deploy-staging",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "deploy-staging"
+        }
+      },
     }
   ]
 }
