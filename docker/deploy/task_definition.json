@@ -4,11 +4,12 @@
     "FARGATE"
   ],
   "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
   "containerDefinitions": [
     {
       "name": "cap-deploy",
       "essential": true,
-      "memory": 512,
       "entryPoint": [
         "bundle exec cap staging deploy"
       ]
