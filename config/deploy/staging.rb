@@ -5,7 +5,7 @@
 
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-server_ip = JSON.parse(ENV['STAGING_SECRETS'])['SERVER_PUBLIC_IP']
+server_ip = ENV.fetch('SERVER_PUBLIC_IP')
 server server_ip, user: "ec2-user", roles: %w{app}
 
 set :branch, "main"

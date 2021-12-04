@@ -24,8 +24,8 @@
       },
       "secrets": [
         {
-          "name": "STAGING_SECRETS",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:442014623269:secret:deploy/staging-NfAu1u"
+          "name": "SERVER_PUBLIC_IP",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:442014623269:secret:deploy/staging-NfAu1u:SERVER_PUBLIC_IP"
         }
       ]
     }
