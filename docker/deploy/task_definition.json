@@ -12,7 +12,7 @@
       "name": "cap-deploy",
       "essential": true,
       "entryPoint": [
-        "bundle exec cap staging deploy"
+        "echo oi"
       ]
     }
   ]
