@@ -11,9 +11,7 @@
     {
       "name": "cap-deploy",
       "essential": true,
-      "command": [
-        "echo oi"
-      ]
+      "command": ["echo", "oi"]
     }
   ]
 }
