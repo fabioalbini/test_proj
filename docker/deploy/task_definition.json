@@ -8,7 +8,7 @@
     {
       "name": "cap-deploy",
       "essential": true,
-      "memory": 0.5,
+      "memory": 512,
       "entryPoint": [
         "bundle exec cap staging deploy"
       ]
