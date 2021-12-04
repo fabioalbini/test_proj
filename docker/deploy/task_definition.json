@@ -3,14 +3,15 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "networkMode": "awsvpc"
+  "networkMode": "awsvpc",
   "containerDefinitions": [
     {
+      "name": "cap-deploy",
       "essential": true,
+      "memory": 0.5,
       "entryPoint": [
         "bundle exec cap staging deploy"
-      ],
-      "name": "cap-deploy"
+      ]
     }
   ]
 }

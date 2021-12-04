@@ -49,7 +49,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: src/docker/deploy/task-definition.json
+          task-definition: docker/deploy/task_definition.json
           container-name: cap-deploy
           # image: ${{ steps.build-image.outputs.image }}
           image: 442014623269.dkr.ecr.us-east-1.amazonaws.com/deploy-test:a2676eb9015e24110a935880411d7ec947a87dae
