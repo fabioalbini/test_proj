@@ -28,15 +28,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
       - name: Setup gems
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --path vendor/bundle
-      - name: Deploy
         env:
           SERVER_PUBLIC_IP: ${{secrets.SERVER_PUBLIC_IP}}
           SSH_KEY: ${{secrets.SSH_KEY}}
         run: |
-          echo $SSH_KEY > ./ssh_key.pem
+          gem install bundler
+          bundle install --jobs 4 --path vendor/bundle
+          echo "${{secrets.SSH_KEY}}" > ssh_key.pem
           bundle exec cap staging deploy
 
 

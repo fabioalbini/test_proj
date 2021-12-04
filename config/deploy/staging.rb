@@ -5,7 +5,7 @@
 
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-server ENV.fetch(:SERVER_PUBLIC_IP), user: "ec2-user", roles: %w{app}
+server ENV.fetch('SERVER_PUBLIC_IP'), user: "ec2-user", roles: %w{app}
 
 set :branch, "main"
 
