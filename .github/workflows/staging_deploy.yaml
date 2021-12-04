@@ -36,7 +36,7 @@ jobs:
           SERVER_PUBLIC_IP: ${{secrets.SERVER_PUBLIC_IP}}
           SSH_KEY: ${{secrets.SSH_KEY}}
         run: |
-          echo $SSH_KEY > ~/ssh_key.pem
+          echo $SSH_KEY > src/ssh_key.pem
           bundle exec cap staging deploy
 
 
