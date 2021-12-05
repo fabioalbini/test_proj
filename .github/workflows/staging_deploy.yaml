@@ -54,7 +54,22 @@ jobs:
           # image: ${{ steps.build-image.outputs.image }}
           image: 442014623269.dkr.ecr.us-east-1.amazonaws.com/deploy-test:a2676eb9015e24110a935880411d7ec947a87dae
       - name: Deploy Amazon ECS task definition
+        id: task-def-deploy
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           cluster: deploy-cluster
+      - name: Run Task Definition
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ env.AWS_REGION }}
+          TASK_DEFINITION: ${{ steps.task-def-deploy.output.task-definition-arn }}
+        run: |
+          gem install aws-sdk-ecs
+          ruby .github/workflows/run_ecs_task.rb
+
+
