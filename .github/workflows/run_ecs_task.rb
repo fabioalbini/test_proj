@@ -19,7 +19,7 @@ run_task_response = client.run_task({
 
 wait_while = ["PROVISIONING", "PENDING", "ACTIVATING", "RUNNING"]
 loop do
-  task = client.describe_tasks(cluster: ECS_CLUSTER, tasks: [run_task_response.tasks.first.task_arn]).first
+  task = client.describe_tasks(cluster: ECS_CLUSTER, tasks: [run_task_response.tasks.first.task_arn]).tasks.first
   sleep 2
   return unless wait_while.include?(task.last_status)
 end
