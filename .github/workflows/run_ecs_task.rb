@@ -6,7 +6,7 @@ client = Aws::ECS::Client.new
 
 run_task_response = client.run_task({
   launch_type: "FARGATE",
-  cluster: CLUSTER,
+  cluster: ECS_CLUSTER,
   task_definition: ENV.fetch("ECS_TASK_DEFINITION"),
   network_configuration: {
     awsvpc_configuration: {
