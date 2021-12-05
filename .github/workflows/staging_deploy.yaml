@@ -65,11 +65,8 @@ jobs:
           ruby-version: 2.7.2
       - name: Run Task Definition
         env:
-          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ env.AWS_REGION }}
           ECS_TASK_DEFINITION: ${{ steps.task-def-deploy.outputs.task-definition-arn }}
-          ECS_SUBNET: $${ env.ECS_SUBNET }
+          ECS_SUBNET: $${ secrets.ECS_SUBNET }
         run: |
           gem install aws-sdk-ecs
           ruby .github/workflows/run_ecs_task.rb
