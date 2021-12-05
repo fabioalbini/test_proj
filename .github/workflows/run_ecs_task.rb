@@ -9,7 +9,7 @@ client = Aws::ECS::Client.new
 resp = client.run_task({
   launch_type: "FARGATE",
   cluster: CLUSTER,
-  task_definition: ENV.fetch(:TASK_DEFINITION),
+  task_definition: ENV.fetch("TASK_DEFINITION"),
   network_configuration: {
     awsvpc_configuration: {
       subnets: SUBNETS,
