@@ -1,8 +1,6 @@
 require "aws-sdk-ecs"
 
-CLUSTER="deploy-cluster"
-# TASK_DEFINITION="capistrano-deploy-staging:14"
-SUBNETS=["subnet-2210f56b"]
+ECS_CLUSTER="deploy-cluster"
 
 client = Aws::ECS::Client.new
 
@@ -21,7 +19,7 @@ run_task_response = client.run_task({
 
 wait_while = ["PROVISIONING", "PENDING", "ACTIVATING", "RUNNING"]
 loop do
-  task = client.describe_tasks(cluster: "deploy-cluster", tasks: [run_task_response.tasks.first.task_arn]).first
+  task = client.describe_tasks(cluster: ECS_CLUSTER, tasks: [run_task_response.tasks.first.task_arn]).first
   sleep 2
   return unless wait_while.include?(task.last_status)
 end
