@@ -68,7 +68,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ env.AWS_REGION }}
-          TASK_DEFINITION: ${{ steps.task-def-deploy.output.task-definition-arn }}
+          TASK_DEFINITION: ${{ steps.task-def-deploy.outputs.task-definition-arn }}
         run: |
           gem install aws-sdk-ecs
           ruby .github/workflows/run_ecs_task.rb
