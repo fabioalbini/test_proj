@@ -1,0 +1,48 @@
+# This is a basic workflow that is manually triggered
+
+name: Staging Deploy - Lambda
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}                        # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  staging_deploy:
+    name: Staging Deploy - Lambda
+    runs-on: ubuntu-20.04 # ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - run: git fetch --no-tags --prune origin +refs/heads/*:refs/remotes/origin/*
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+
+      - name: Build and package
+         run: |
+           bundle install --path vendor/bundle -j2
+
+      - name: zip
+         uses: montudor/action-zip@v0.1.0
+         with:
+           args: zip -r code.zip .
+
+      - name: update lambda
+         uses: appleboy/lambda-action@master
+         with:
+           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           aws_region: ${{ secrets.AWS_REGION }}                        # set this to your preferred AWS region, e.g. us-west-1
+           function_name: 'capistrano-staging_lambda'
+           zip_file: 'code.zip'
