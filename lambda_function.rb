@@ -3,9 +3,7 @@ def lambda_handler(event:, context:)
 
   environment = event["environment"]
 
-  system("ls")
-  system("bundle install -j4 --path vendor/bundle")
-
+  system("bundle config set --local /mnt/bundle && bundle install -j4")
   results[:test] = "Hello!! - #{environment}"
 
   {
