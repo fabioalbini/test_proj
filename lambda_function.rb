@@ -1,7 +1,12 @@
 def lambda_handler(event:, context:)
   results = {}
 
-  results[:test] = "Hello!!"
+  environment = event["environment"]
+
+  system("ls")
+  system("bundle install -j4")
+
+  results[:test] = "Hello!! - #{environment}"
 
   {
     results: results,

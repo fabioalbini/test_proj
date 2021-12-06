@@ -24,11 +24,6 @@ jobs:
 
       - run: git fetch --no-tags --prune origin +refs/heads/*:refs/remotes/origin/*
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.2
-
       - name: zip
         uses: montudor/action-zip@v0.1.0
         with:
