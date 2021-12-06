@@ -54,3 +54,4 @@ jobs:
           aws_region: ${{ secrets.AWS_REGION }}                        # set this to your preferred AWS region, e.g. us-west-1
           function_name: 'capistrano-staging_lambda'
           zip_file: 'code.zip'
+          s3_bucket: 'fabioalbini-deploy-test'
