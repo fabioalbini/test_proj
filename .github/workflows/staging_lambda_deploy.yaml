@@ -24,23 +24,6 @@ jobs:
 
       - run: git fetch --no-tags --prune origin +refs/heads/*:refs/remotes/origin/*
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.2
-
-      - name: Gem Cache
-        uses: pat-s/always-upload-cache@v2.1.3
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-
-      - name: Build and package
-        run: |
-          bundle install --path vendor/bundle
-
       - name: zip
         uses: montudor/action-zip@v0.1.0
         with:
