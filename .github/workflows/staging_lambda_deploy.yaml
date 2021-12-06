@@ -34,15 +34,15 @@ jobs:
           bundle install --path vendor/bundle -j2
 
       - name: zip
-         uses: montudor/action-zip@v0.1.0
-         with:
-           args: zip -r code.zip .
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -r code.zip .
 
       - name: update lambda
-         uses: appleboy/lambda-action@master
-         with:
-           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-           aws_region: ${{ secrets.AWS_REGION }}                        # set this to your preferred AWS region, e.g. us-west-1
-           function_name: 'capistrano-staging_lambda'
-           zip_file: 'code.zip'
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}                        # set this to your preferred AWS region, e.g. us-west-1
+          function_name: 'capistrano-staging_lambda'
+          zip_file: 'code.zip'
