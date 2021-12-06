@@ -30,8 +30,8 @@ jobs:
           ruby-version: 2.7.2
 
       - name: Build and package
-         run: |
-           bundle install --path vendor/bundle -j2
+        run: |
+          bundle install --path vendor/bundle -j2
 
       - name: zip
          uses: montudor/action-zip@v0.1.0
