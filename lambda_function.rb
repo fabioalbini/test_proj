@@ -4,7 +4,7 @@ def lambda_handler(event:, context:)
   environment = event["environment"]
 
   system("ls")
-  system("bundle install -j4")
+  system("bundle install -j4 --path vendor/bundle")
 
   results[:test] = "Hello!! - #{environment}"
 
