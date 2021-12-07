@@ -14,13 +14,14 @@ run_task_response = client.run_task({
       assign_public_ip: "ENABLED"
     }
   },
-  overrides: {
-    container_overrides: [
-      environment: [
-        { name: "EC2_SSH_KEY", value: ENV.fetch("EC2_SSH_KEY") }
-      ]
-    ]
-  }
+  # overrides: {
+  #   container_overrides: [
+  #     name: "cap-deploy",
+  #     environment: [
+  #       { "name" => "EC2_SSH_KEY", "value" => ENV.fetch("EC2_SSH_KEY") }
+  #     ]
+  #   ]
+  # }
 
 })
 
