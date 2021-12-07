@@ -13,6 +13,13 @@ run_task_response = client.run_task({
       subnets: [ENV.fetch("ECS_SUBNET")],
       assign_public_ip: "ENABLED"
     }
+  },
+  overrides: {
+    container_overrides: [
+      environment: [
+        { name: "EC2_SSH_KEY", value: ENV.fetch("EC2_SSH_KEY") }
+      ]
+    ]
   }
 
 })
