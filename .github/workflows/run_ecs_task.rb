@@ -11,7 +11,8 @@ run_task_response = client.run_task({
   network_configuration: {
     awsvpc_configuration: {
       subnets: [ENV.fetch("ECS_SUBNET")],
-      assign_public_ip: "ENABLED"
+      assign_public_ip: "ENABLED",
+      security_groups: ["sg-0166b518264c0af1a"]
     }
   },
   # overrides: {
