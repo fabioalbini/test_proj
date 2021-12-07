@@ -21,7 +21,7 @@ run_task_response = client.run_task({
     container_overrides: [
       name: "cap-deploy",
       environment: [
-        { "name" => "EC2_SSH_KEY", "value" => ENV.fetch("EC2_SSH_KEY") }
+        { "name" => "EC2_SSH_KEY2", "value" => ENV.fetch("EC2_SSH_KEY2") }
       ]
     ]
   }
