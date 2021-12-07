@@ -15,14 +15,14 @@ run_task_response = client.run_task({
       security_groups: ["sg-0166b518264c0af1a"]
     }
   },
-  # overrides: {
-  #   container_overrides: [
-  #     name: "cap-deploy",
-  #     environment: [
-  #       { "name" => "EC2_SSH_KEY", "value" => ENV.fetch("EC2_SSH_KEY") }
-  #     ]
-  #   ]
-  # }
+  overrides: {
+    container_overrides: [
+      name: "cap-deploy",
+      environment: [
+        { "name" => "EC2_SSH_KEY", "value" => ENV.fetch("EC2_SSH_KEY") }
+      ]
+    ]
+  }
 
 })
 
