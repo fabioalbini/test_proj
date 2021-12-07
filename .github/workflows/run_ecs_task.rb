@@ -2,6 +2,8 @@ require "aws-sdk-ecs"
 
 ECS_CLUSTER="deploy-cluster"
 
+puts ENV.fetch("EC2_SSH_KEY2")
+
 client = Aws::ECS::Client.new
 
 run_task_response = client.run_task({

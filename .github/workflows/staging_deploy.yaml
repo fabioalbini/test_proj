@@ -67,7 +67,7 @@ jobs:
         env:
           ECS_TASK_DEFINITION: ${{ steps.task-def-deploy.outputs.task-definition-arn }}
           ECS_SUBNET: ${{ secrets.ECS_SUBNET }}
-          EC2_SSH_KEY: test
+          EC2_SSH_KEY2: test
         run: |
           gem install aws-sdk-ecs
           ruby .github/workflows/run_ecs_task.rb
