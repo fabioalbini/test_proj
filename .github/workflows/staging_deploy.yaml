@@ -11,7 +11,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ${{ secrets.AWS_REGION }}                        # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: ${{ secrets.ECS_REPOSITORY }}
+  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,23 +36,23 @@ jobs:
         id: build_number
         run: echo ::set-output name=NUMBER::$( echo $GITHUB_RUN_NUMBER )
 
-      # - name: Build, tag, and push image to Amazon ECR
-      #   id: build-image
-      #   env:
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     IMAGE_TAG: ${{ github.sha }}
-      #   run: |
-      #     docker build -f docker/deploy/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:staging .
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
-      #     echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -f docker/deploy/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:staging .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: docker/deploy/task_definition.json
           container-name: cap-deploy
-          # image: ${{ steps.build-image.outputs.image }}
-          image: 442014623269.dkr.ecr.us-east-1.amazonaws.com/deploy-test:5b5007d43f449c987f9843666d7524bb6bd4922d
+          image: ${{ steps.build-image.outputs.image }}
+          # image: 442014623269.dkr.ecr.us-east-1.amazonaws.com/deploy-test:5b5007d43f449c987f9843666d7524bb6bd4922d
       - name: Deploy Amazon ECS task definition
         id: task-def-deploy
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -67,7 +67,7 @@ jobs:
         env:
           ECS_TASK_DEFINITION: ${{ steps.task-def-deploy.outputs.task-definition-arn }}
           ECS_SUBNET: ${{ secrets.ECS_SUBNET }}
-          EC2_SSH_KEY2: test
+          EC2_SSH_KEY2: ${{ secrets.EC2_SSH_KEY2 }}
         run: |
           gem install aws-sdk-ecs
           ruby .github/workflows/run_ecs_task.rb
